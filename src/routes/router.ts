@@ -6,6 +6,18 @@ import {
   updateUser,
   deleteUser,
 } from "../controllers/userControllers";
+import {
+  deletePost,
+  createPost,
+  getOnePost,
+  updatePost,
+  getAllPost,
+} from "../controllers/postControllers";
+
+import {
+  addCategory,
+  getAllCategories,
+} from "../controllers/categoryController";
 const router = express.Router();
 
 //user routes.----------------------
@@ -17,28 +29,19 @@ router.put("/users/:id", updateUser);
 
 router.delete("/users/:id", deleteUser);
 //posts routes.----------------------
-router.get("/posts", (req, res) => {
-  console.log("this is users route");
-});
+router.get("/posts", getAllPost);
 
-router.post("/posts", (req, res) => {
-  console.log("this is users route");
-});
-router.get("/posts/:id", (req, res) => {
-  console.log("this is users route");
-});
+router.post("/posts", createPost);
 
-router.delete("/posts/:id", (req, res) => {
-  console.log("this is users route");
-});
+router.get("/posts/:id", getOnePost);
 
-router.put("/posts/:id", (req, res) => {
-  console.log("this is users route");
-});
+router.delete("/posts/:id", deletePost);
+
+router.put("/posts/:id", updatePost);
 //  categories routes-----
 
-router.post("/posts/:postId/category", () => {});
-router.get("/posts/:postId/category", () => {});
+router.post("/posts/:postId/category", addCategory);
+router.get("/posts/:postId/category", getAllCategories);
 
 // comments routesd------
 router.post("/posts/:postId/comments", () => {});
@@ -48,7 +51,6 @@ router.get("/posts/:postId/comments", () => {});
 export default router;
 
 // /api/posts
-// POST: Create a new post
 // GET: Get all posts with associated users, categories, and comments
 // GET /
 // : Get post by ID with associated users, categories, and comments

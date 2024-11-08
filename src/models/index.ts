@@ -25,3 +25,16 @@ Comment.belongsTo(User);
 //post-comment relation
 Post.hasMany(Comment);
 Comment.belongsTo(Post);
+//-----------------
+
+Post.belongsTo(User, { foreignKey: "userUserId" });
+Post.hasMany(Comment, { foreignKey: "postPostId" });
+
+Category.belongsToMany(Post, {
+  through: "CategoryPost",
+  foreignKey: "categoryId",
+});
+Post.belongsToMany(Category, {
+  through: "CategoryPost",
+  foreignKey: "postId",
+});

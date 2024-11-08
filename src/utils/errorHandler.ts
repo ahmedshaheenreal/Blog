@@ -19,9 +19,7 @@ const errorHandler = (
       message: "Conflict: Unique constraint violation",
       errors: error.errors, // Specific errors related to the unique constraint
     });
-  }
-  // Handle Sequelize validation errors
-  else if (error instanceof SequelizeValidationError) {
+  } else if (error instanceof SequelizeValidationError) {
     res.status(422).json({
       message: "Validation error",
       errors: error.errors, // Detailed validation errors

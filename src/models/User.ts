@@ -1,5 +1,6 @@
 import sequelize from "../config/database";
 import { Sequelize, DataTypes } from "sequelize";
+import Post from "./Post";
 
 const User = sequelize.define(
   "user",
@@ -31,5 +32,5 @@ const User = sequelize.define(
     freezeTableName: true,
   }
 );
-
+User.hasMany(Post);
 export default User;

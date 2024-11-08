@@ -4,7 +4,7 @@ import User from "../models/User";
 import app from "../index";
 import router from "../routes/router";
 import { server } from "../index";
-
+import sequelize from "../config/database";
 app.use(express.json());
 app.use("/api", router); // Use your image routes
 // Mocking User model and methods for isolated testing

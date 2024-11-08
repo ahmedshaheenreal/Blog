@@ -1,0 +1,149 @@
+import { Request, Response, NextFunction } from "express";
+import Post from "../models/Post";
+import Comment from "../models/Comment";
+import Joi from "joi";
+import checkUser from "../utils/userCheck";
+import Category from "../models/Category";
+import User from "../models/User";
+
+export const createPost = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const schema = Joi.object({
+      title: Joi.string().min(3).max(100).required(),
+      content: Joi.string().min(1).max(500).required(),
+      userUserId: Joi.string(),
+    });
+    const { error, value } = schema.validate({
+      title: req.body.title,
+      content: req.body.content,
+      userUserId: req.body.userUserId,
+    });
+    // throw validation error
+
+    if (error) throw error;
+    checkUser(req, res, next);
+    const newPost = await Post.create(value);
+    res.status(201).json({
+      success: true,
+      message: "post created successfully!",
+      body: newPost,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getOnePost = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const post = await Post.findOne({
+      where: {
+        post_id: req.params.id,
+      },
+      include: [
+        {
+          model: User,
+        },
+        {
+          model: Comment,
+        },
+        {
+          model: Category,
+        },
+      ],
+    });
+    res.status(200).json({
+      success: true,
+      message: "post retrieved successfully!",
+      body: post,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const deletePost = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const deleted = await Post.destroy({
+      where: {
+        post_id: req.params.id,
+      },
+    });
+    if (deleted === 0) {
+      res.status(400).json({
+        success: false,
+        message: "Post not found",
+      });
+      return;
+    }
+    res.status(204).send();
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updatePost = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const schema = Joi.object({
+      title: Joi.string().min(3).max(100).required().optional(),
+      content: Joi.string().min(1).max(500).required().optional(),
+      userUserId: Joi.string().optional(),
+    });
+    const { error, value } = schema.validate({
+      ...req.body,
+    });
+    if (error) throw error;
+    const user = await User.update(value, {
+      where: {
+        user_id: req.params.id,
+      },
+    });
+
+    res.status(204).send();
+  } catch (error) {
+    next(error);
+  }
+};
+export const getAllPost = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const posts = await Post.findAll({
+      include: [
+        {
+          model: User,
+        },
+        {
+          model: Comment,
+        },
+        {
+          model: Category,
+        },
+      ],
+    });
+    res.status(200).json({
+      success: true,
+      message: "all posts retrieved successfully!",
+      body: posts,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
