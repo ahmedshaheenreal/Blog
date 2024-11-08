@@ -3,9 +3,6 @@ import Post from "./Post";
 import Category from "./Category";
 import Comment from "./Comment";
 import sequelize from "../config/database";
-// import CategoryPost from "./CategoryPost";
-
-//Post category relationship, this would automatically create a join table
 
 Category.belongsToMany(Post, {
   through: "CategoryPost",
@@ -28,5 +25,3 @@ Comment.belongsTo(User);
 //post-comment relation
 Post.hasMany(Comment);
 Comment.belongsTo(Post);
-
-sequelize.sync();
