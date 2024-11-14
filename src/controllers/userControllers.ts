@@ -1,15 +1,19 @@
 import { Request, Response, NextFunction } from "express";
 import User from "../models/User";
 import Joi from "joi";
-
+import createToken from "../utils/createToken";
+import { configDotenv } from "dotenv";
+import bcrypt from "bcrypt";
+configDotenv();
 export const createUser = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
+    const sceretKey = process.env.SECRET_KEY || "secret";
     const schema = Joi.object({
-      username: Joi.string().alphanum().min(5).max(16).required(),
+      username: Joi.string().min(5).max(16).required(),
       password: Joi.string().min(8).max(20).required(),
       email: Joi.string().email({
         minDomainSegments: 2,
@@ -25,14 +29,25 @@ export const createUser = async (
     if (error) {
       throw error;
     }
-
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(value.password, salt);
+    console.log(hashedPassword);
     const newUser = await User.create({
       username: value.username,
       email: value.email,
-      password: value.password,
+      password: hashedPassword,
     });
+    console.log("new User : ", newUser);
+    const token = createToken(
+      {
+        ...value,
+        id: newUser.dataValues.user_id,
+        password: hashedPassword,
+      },
+      sceretKey
+    );
 
-    res.status(201).json({ success: true, newUser });
+    res.status(201).json({ success: true, message: "user created!", token });
   } catch (error) {
     next(error);
   }

@@ -18,17 +18,18 @@ import {
   addCategory,
   getAllCategories,
 } from "../controllers/categoryController";
+import { loginController } from "../controllers/loginController";
 
 import { addComment, getAllComments } from "../controllers/commentControllers";
+import verifyToken from "../utils/verifyToken";
 const router = express.Router();
 
 //user routes.----------------------
-router.get("/users", getAllUsers);
-
+router.post("/login", loginController);
+router.get("/users", verifyToken, getAllUsers);
 router.get("/users/:id", getOneUser);
 router.post("/users", createUser);
 router.put("/users/:id", updateUser);
-
 router.delete("/users/:id", deleteUser);
 //posts routes.----------------------
 router.get("/posts", getAllPost);
