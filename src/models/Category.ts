@@ -18,4 +18,5 @@ const Category = sequelize.define(
     freezeTableName: true,
   }
 );
+
 export default Category;

@@ -24,5 +24,13 @@ const Post = sequelize.define(
     freezeTableName: true,
   }
 );
+Category.belongsToMany(Post, {
+  through: "CategoryPost",
+  foreignKey: "categoryId",
+});
+Post.belongsToMany(Category, {
+  through: "CategoryPost",
+  foreignKey: "postId",
+});
 
 export default Post;

@@ -18,5 +18,6 @@ const Comment = sequelize.define(
     freezeTableName: true,
   }
 );
+//post-comment relation
 
 export default Comment;

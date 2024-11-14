@@ -1,30 +1,48 @@
-import express, { Request, Response, NextFunction } from "express";
-import { createPost } from "../controllers/postControllers";
-import Post from "../models/Post";
-import User from "../models/User";
-import app from "../index";
-import router from "../routes/router";
-import { server } from "../index";
-import sequelize from "../config/database";
+const express = require("express");
+const { createPost } = require("../src/controllers/postControllers");
+type Request = import("express").Request;
+type Response = import("express").Response;
+type NextFunction = import("express").NextFunction;
+const { Post, User } = require("../src/models");
+import app from "../src/index";
+const router = require("../src/routes/router");
+import { server } from "../src/index";
+import sequelize from "../src/config/database";
 
-app.use(express.json());
-app.use("/api", router); // Use your image routes
-// Mocking User model and methods for isolated testing
-jest.mock("../models/User", () => ({
+app(sequelize).use(express.json());
+// app(sequelize).use("/api", router);
+jest.mock("../src/models/User", () => ({
   findOne: jest.fn(),
+  hasMany: jest.fn(),
 }));
-jest.mock("../models/Post", () => ({
-  create: jest.fn(), // Mock 'create' directly here
+
+jest.mock("../src/models/Post", () => ({
+  findOne: jest.fn(),
+  hasMany: jest.fn(),
+  belongsTo: jest.fn(),
+  belongsToMany: jest.fn(),
+  create: jest.fn(),
+}));
+jest.mock("../src/models/Category", () => ({
+  findOne: jest.fn(),
+  hasMany: jest.fn(),
+  belongsTo: jest.fn(),
+  belongsToMany: jest.fn(),
+}));
+
+jest.mock("../src/models/Comment", () => ({
+  findOne: jest.fn(),
+  hasMany: jest.fn(),
+  belongsTo: jest.fn(),
 }));
 describe("Post Controller - createPost", () => {
   let req: Partial<Request>;
   let res: Partial<Response>;
   let next: NextFunction;
 
-  beforeAll(async () => {
-    // Sync the database with the models before tests
-    sequelize.sync(); // Use `force: true` to drop tables and recreate them
-  });
+  // beforeAll(async () => {
+  //   await sequelize.sync();
+  // });
 
   beforeEach(() => {
     req = {
@@ -61,14 +79,11 @@ describe("Post Controller - createPost", () => {
   });
 
   it("should return status 400 if the post is not created (No User)", async () => {
-    // Mocking User.findOne to return null (i.e., no user found)
     (User.findOne as jest.Mock).mockResolvedValue(null);
 
     await createPost(req as Request, res as Response, next);
 
-    // Expecting a 400 status code
     expect(res.status).toHaveBeenCalledWith(400);
-    // Expecting the success flag to be  *false* and an appropriate message
     expect(res.json).toHaveBeenCalledWith({
       success: false,
       message: "No user with this id found",

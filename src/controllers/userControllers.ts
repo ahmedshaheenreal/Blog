@@ -45,7 +45,11 @@ export const getAllUsers = async (
 ) => {
   try {
     const usersList = await User.findAll();
-    res.status(200).json(usersList);
+    res.status(200).json({
+      success: true,
+      message: "All users retrieved successfully!",
+      body: usersList,
+    });
   } catch (error) {
     next(error);
   }

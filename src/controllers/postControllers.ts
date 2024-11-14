@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import Post from "../models/Post";
-import Comment from "../models/Comment";
+import { Comment, Post } from "../models";
 import Joi from "joi";
 import checkUser from "../utils/userCheck";
 import Category from "../models/Category";

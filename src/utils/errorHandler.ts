@@ -11,18 +11,19 @@ const errorHandler = (
   res: Response,
   next: NextFunction
 ): void => {
-  // Handle Unique Constraint violations
   if (error instanceof Joi.ValidationError) {
     res.status(400).json({ success: false, message: error.message });
-  } else if (error instanceof UniqueConstraintError) {
+  }
+  // Handle Unique Constraint violations
+  else if (error instanceof UniqueConstraintError) {
     res.status(409).json({
       message: "Conflict: Unique constraint violation",
-      errors: error.errors, // Specific errors related to the unique constraint
+      errors: error.errors,
     });
   } else if (error instanceof SequelizeValidationError) {
     res.status(422).json({
       message: "Validation error",
-      errors: error.errors, // Detailed validation errors
+      errors: error.errors,
     });
   }
   // Handle general database errors

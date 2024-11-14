@@ -18,6 +18,8 @@ import {
   addCategory,
   getAllCategories,
 } from "../controllers/categoryController";
+
+import { addComment, getAllComments } from "../controllers/commentControllers";
 const router = express.Router();
 
 //user routes.----------------------
@@ -44,8 +46,8 @@ router.post("/posts/:postId/category", addCategory);
 router.get("/posts/:postId/category", getAllCategories);
 
 // comments routesd------
-router.post("/posts/:postId/comments", () => {});
-router.get("/posts/:postId/comments", () => {});
+router.post("/posts/:postId/comments", addComment);
+router.get("/posts/:postId/comments", getAllComments);
 
 //----
 export default router;

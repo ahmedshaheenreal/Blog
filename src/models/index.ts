@@ -4,15 +4,6 @@ import Category from "./Category";
 import Comment from "./Comment";
 import sequelize from "../config/database";
 
-Category.belongsToMany(Post, {
-  through: "CategoryPost",
-  foreignKey: "categoryId",
-});
-Post.belongsToMany(Category, {
-  through: "CategoryPost",
-  foreignKey: "postId",
-});
-
 //user post relation
 
 User.hasMany(Post);
@@ -38,3 +29,5 @@ Post.belongsToMany(Category, {
   through: "CategoryPost",
   foreignKey: "postId",
 });
+
+export { User, Post, Category, Comment };

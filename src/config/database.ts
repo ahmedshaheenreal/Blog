@@ -12,8 +12,5 @@ const sequelize = new Sequelize(
     logging: console.log,
   }
 );
-// sequelize
-//   .sync()
-//   .then(() => console.log("Database & tables synced"))
-//   .catch((error) => console.error("Error syncing database:", error));
+
 export default sequelize;
