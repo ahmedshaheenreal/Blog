@@ -1,16 +1,15 @@
+import app from "../src/index";
+
+import { server } from "../src/index";
+
 const express = require("express");
 const { createPost } = require("../src/controllers/postControllers");
 type Request = import("express").Request;
 type Response = import("express").Response;
 type NextFunction = import("express").NextFunction;
 const { Post, User } = require("../src/models");
-import app from "../src/index";
-const router = require("../src/routes/router");
-import { server } from "../src/index";
-import sequelize from "../src/config/database";
 
-app(sequelize).use(express.json());
-// app(sequelize).use("/api", router);
+app.use(express.json());
 jest.mock("../src/models/User", () => ({
   findOne: jest.fn(),
   hasMany: jest.fn(),
@@ -39,10 +38,6 @@ describe("Post Controller - createPost", () => {
   let req: Partial<Request>;
   let res: Partial<Response>;
   let next: NextFunction;
-
-  // beforeAll(async () => {
-  //   await sequelize.sync();
-  // });
 
   beforeEach(() => {
     req = {
