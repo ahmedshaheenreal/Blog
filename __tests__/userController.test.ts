@@ -1,34 +1,12 @@
-// import request from "supertest";
-// import { jest } from "@jest/globals";
-// import app from "../src/index";
-
-// const createUser = jest.fn();
-// const findAll = jest.fn();
-
-// const server = app({ createUser });
-
-// describe("USERS / POST", () => {
-//   beforeEach(() => {
-//     createUser.mockReset();
-//   });
-// });
-
-// // describe();
-
 import express, { Request, Response, NextFunction } from "express";
 import { getOneUser } from "../src/controllers/userControllers";
 import User from "../src/models/User";
 import app from "../src/index";
 import { server } from "../src/index";
 import router from "../src/routes/router";
-// import app from "../src/index";
-import sequelize from "../src/config/database";
-import { BelongsToMany } from "sequelize";
-// import { HasMany } from "sequelize";
 
-const mockApp = app({ sequelize });
-mockApp.use(express.json());
-mockApp.use("/api", router);
+app.use(express.json());
+app.use("/api", router);
 
 jest.mock("../src/models/User", () => ({
   findOne: jest.fn(),
@@ -71,7 +49,20 @@ describe("User Controller - getOneUser", () => {
 
     next = jest.fn();
   });
-
+  const mockUsers: any[] = [
+    {
+      id: 1,
+      username: "testuserrrrrrrrrrrrrrrrr",
+      email: "test@example.com",
+      password: "testpassword123",
+    },
+    {
+      id: 2,
+      username: "test",
+      email: "test@examplee.com",
+      password: "testpassword0000",
+    },
+  ];
   it("should return the user with status 200 if the user is found", async () => {
     const mockUser = {
       user_id: "123",
@@ -110,4 +101,3 @@ describe("User Controller - getOneUser", () => {
     server.close(); // Close the server after the tests have finished
   });
 });
-// });
