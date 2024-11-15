@@ -32,10 +32,14 @@ const errorHandler = (
       message: "Database error",
       error: error.message,
     });
+  } else if (
+    error.name === "JsonWebTokenError" ||
+    error.name === "TokenExpiredError"
+  ) {
+    res.status(403).json(error);
   } else {
     res.status(500).json({
-      message: " error",
-      error: error.message,
+      error,
     });
   }
 };

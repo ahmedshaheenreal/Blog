@@ -2,9 +2,8 @@ import express from "express";
 import { configDotenv } from "dotenv";
 import router from "./routes/router";
 import errorHandler from "./utils/errorHandler";
-import sequelize from "./config/database";
+// import sequelize from "./config/database";
 import "./models";
-import { Sequelize } from "sequelize";
 const PORT = process.env.PORT || 3000;
 configDotenv();
 

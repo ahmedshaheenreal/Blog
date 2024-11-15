@@ -4,6 +4,7 @@ import {
   getAllUsers,
   getOneUser,
   updateUser,
+  authUser,
   deleteUser,
 } from "../controllers/userControllers";
 import {
@@ -12,42 +13,45 @@ import {
   getOnePost,
   updatePost,
   getAllPost,
+  authPost,
+  authCreatePost_Comment,
 } from "../controllers/postControllers";
-
+import { authCreateCategory } from "../controllers/categoryController";
 import {
   addCategory,
   getAllCategories,
 } from "../controllers/categoryController";
+import { loginController } from "../controllers/loginController";
 
 import { addComment, getAllComments } from "../controllers/commentControllers";
+import verifyToken from "../utils/verifyToken";
 const router = express.Router();
 
 //user routes.----------------------
-router.get("/users", getAllUsers);
-
-router.get("/users/:id", getOneUser);
+router.post("/login", loginController);
+router.get("/users", verifyToken, getAllUsers);
+router.get("/users/:id", authUser, getOneUser);
 router.post("/users", createUser);
-router.put("/users/:id", updateUser);
-
-router.delete("/users/:id", deleteUser);
+router.put("/users/:id", authUser, updateUser);
+router.delete("/users/:id", authUser, deleteUser);
 //posts routes.----------------------
 router.get("/posts", getAllPost);
 
-router.post("/posts", createPost);
+router.post("/posts", authCreatePost_Comment, createPost);
 
-router.get("/posts/:id", getOnePost);
+router.get("/posts/:id", authPost, getOnePost);
 
-router.delete("/posts/:id", deletePost);
+router.delete("/posts/:id", authPost, deletePost);
 
-router.put("/posts/:id", updatePost);
+router.put("/posts/:id", authPost, updatePost);
 //  categories routes-----
 
-router.post("/posts/:postId/category", addCategory);
-router.get("/posts/:postId/category", getAllCategories);
+router.post("/posts/:postId/category", authCreateCategory, addCategory);
+router.get("/posts/:postId/category", verifyToken, getAllCategories);
 
 // comments routesd------
-router.post("/posts/:postId/comments", addComment);
-router.get("/posts/:postId/comments", getAllComments);
+router.post("/posts/:postId/comments", authCreatePost_Comment, addComment);
+router.get("/posts/:postId/comments", verifyToken, getAllComments);
 
 //----
 export default router;
