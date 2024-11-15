@@ -20,10 +20,12 @@ export const loginController = async (
       token,
       process.env.SECRET_KEY || ""
     ) as jwt.JwtPayload;
+    console.log("This is the decoded login try: ");
     //respond that they are already logged in
     if (decoded) {
       res.status(409).json({
         message: "You are already logged in.",
+        token,
       });
 
       return;
@@ -71,7 +73,8 @@ export const loginController = async (
       if (result) {
         const token = createToken(
           {
-            password: theUser.passord,
+            id: theUser.user_id,
+            password: theUser.password,
             username: theUser.username,
             email: theUser.email,
           },

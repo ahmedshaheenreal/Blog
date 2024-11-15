@@ -1,6 +1,12 @@
 import { Request, Response, NextFunction } from "express";
 import Post from "../models/Post";
 import Category from "../models/Category";
+import { configDotenv } from "dotenv";
+import jwt from "jsonwebtoken";
+
+configDotenv();
+
+const sceretKey = process.env.SECRET_KEY || "secret";
 
 export const addCategory = async (
   req: Request,
@@ -17,6 +23,7 @@ export const addCategory = async (
         name: req.body.name,
       },
     });
+
     await post.addCategory(object);
 
     res.status(201).json({
@@ -56,3 +63,40 @@ export const getAllCategories = async (
     next(error);
   }
 };
+
+export async function authCreateCategory(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const token = req.headers.authorization?.split(" ")[1] || "";
+    if (!token) {
+      res.status(403).json({
+        message: "Please Log in",
+        success: false,
+      });
+      return;
+    }
+    const post = await Post.findByPk(req.params.postId);
+
+    const decode = jwt.verify(token, sceretKey) as jwt.JwtPayload;
+    //check if the user id in the token equals user id in req.params
+    //check if the user id in the token equals user id in req.params
+    console.log("THis is decode token: ", decode.id);
+    console.log("THis is user: ", post?.dataValues.userUserId);
+    if (post?.dataValues.userUserId !== decode.id) {
+      res.status(401).json({
+        success: false,
+        message: "Unauthorized user",
+      });
+      return;
+    }
+    next();
+  } catch (error) {
+    res.status(403).json({
+      success: false,
+      message: "Invalid token",
+    });
+  }
+}

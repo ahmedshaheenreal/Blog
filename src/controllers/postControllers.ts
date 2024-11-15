@@ -4,6 +4,12 @@ import Joi from "joi";
 import checkUser from "../utils/userCheck";
 import Category from "../models/Category";
 import User from "../models/User";
+import { configDotenv } from "dotenv";
+import jwt from "jsonwebtoken";
+
+configDotenv();
+
+const sceretKey = process.env.SECRET_KEY || "secret";
 
 export const createPost = async (
   req: Request,
@@ -107,13 +113,13 @@ export const updatePost = async (
       ...req.body,
     });
     if (error) throw error;
-    const user = await User.update(value, {
+    const user = await Post.update(value, {
       where: {
-        user_id: req.params.id,
+        Post_id: req.params.id,
       },
     });
 
-    res.status(204).send();
+    res.status(200).json({ ...value });
   } catch (error) {
     next(error);
   }
@@ -146,3 +152,82 @@ export const getAllPost = async (
     next(error);
   }
 };
+
+export async function authPost(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const token = req.headers.authorization?.split(" ")[1] || "";
+    if (!token) {
+      res.status(403).json({
+        message: "Please Log in",
+        success: false,
+      });
+      return;
+    }
+    const post = await Post.findByPk(req.params.id);
+
+    if (!post) {
+      res.status(404).json({
+        success: false,
+        message: "Post not found",
+      });
+      return;
+    }
+    const decode = jwt.verify(token, sceretKey) as jwt.JwtPayload;
+    //check if the user id in the token equals user id in req.params
+    //check if the user id in the token equals user id in req.params
+    console.log("THis is decode token: ", decode.id);
+    console.log("THis is user: ", post.dataValues.userUserId);
+
+    if (post.dataValues.userUserId !== decode.id) {
+      res.status(401).json({
+        success: false,
+        message: "Unauthorized user",
+      });
+      return;
+    }
+    next();
+  } catch (error) {
+    res.status(403).json({ success: false, message: "Invalid token" });
+  }
+}
+export async function authCreatePost_Comment(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const token = req.headers.authorization?.split(" ")[1] || "";
+    if (!token) {
+      res.status(403).json({
+        message: "Please Log in",
+        success: false,
+      });
+      return;
+    }
+    // const post = await Post.findByPk(req.params.id);
+
+    const decode = jwt.verify(token, sceretKey) as jwt.JwtPayload;
+    //check if the user id in the token equals user id in req.params
+    //check if the user id in the token equals user id in req.params
+    console.log("THis is decode token: ", decode.id);
+    console.log("THis is user: ", req.body.userUserId);
+
+    if (req.body.userUserId !== decode.id) {
+      res.status(401).json({
+        success: false,
+        message: "Unauthorized user",
+      });
+      return;
+    }
+    next();
+  } catch (error) {
+    res.status(403).json({
+      success: false,
+      message: "Invalid token",
+    });
+  }
+}
