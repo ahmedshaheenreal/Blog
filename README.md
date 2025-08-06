@@ -1,6 +1,7 @@
 # 📝 Blog API (TypeScript + Node.js + Sequelize)
 
-A scalable, RESTful backend API for a blogging platform. This system enables users to create posts, assign categories, and manage comments. Built using Node.js, Express, Sequelize ORM with MySQL, and TypeScript.
+A scalable, RESTful backend API for a blogging platform. This system enables users to create posts, 
+assign categories, and manage comments. Built using Node.js, Express, Sequelize ORM with MySQL, and TypeScript.
 
 ---
 
@@ -30,3 +31,29 @@ A scalable, RESTful backend API for a blogging platform. This system enables use
 ---
 
 ## 🗂️ Project Structure
+
+src/
+├── models/ # Sequelize models (User, Post, Category, Comment)
+├── controllers/ # Business logic
+├── routes/ # Express routes
+├── middleware/ # Error handling, JWT auth, validations
+├── utils/ # Helper functions (e.g., database config)
+├── config/ # DB config and environment setup
+├── index.ts # App entry point
+├── tests/ # Unit tests
+---
+
+## ⚙️ Setup Instructions
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/ahmedshaheenreal/Blog.git
+cd Blog
+```
+### 2. Install Dependencies
+
+
+```bash
+npm install
+```
