@@ -162,11 +162,11 @@ POST /api/posts
 ```
 
 
-##🧪 Testing
+## 🧪 Testing
 ```bash
 npm test
 ```
-####Covered: 
+#### Covered: 
 <li>Auth & registration</li>
 
 <li>Post CRUD</li>
@@ -177,7 +177,7 @@ npm test
 
 
 
-## 📄 License
+##  📄 License
 
 This project is licensed under the MIT License.
 
