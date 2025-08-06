@@ -33,14 +33,14 @@ assign categories, and manage comments. Built using Node.js, Express, Sequelize 
 ## 🗂️ Project Structure
 <br/>
 src/
-├── models/  Sequelize models (User, Post, Category, Comment)
-├── controllers/  Business logic
-├── routes/  Express routes
-├── middleware/  Error handling, JWT auth, validations
-├── utils/  Helper functions (e.g., database config)
-├── config/  DB config and environment setup
-├── index.ts  App entry point
-├── tests/  Unit tests
+├── models/  Sequelize models (User, Post, Category, Comment) <br/>
+├── controllers/  Business logic <br/>
+├── routes/  Express routes <br/>
+├── middleware/  Error handling, JWT auth, validations <br/>
+├── utils/  Helper functions (e.g., database config) <br/>
+├── config/  DB config and environment setup <br/>
+├── index.ts  App entry point <br/>
+├── tests/  Unit tests <br/>
 ---
 
 ## ⚙️ Setup Instructions
