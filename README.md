@@ -66,3 +66,42 @@ DB_USER=your_db_user
 DB_PASS=your_db_password
 JWT_SECRET=your_secret_key
 ```
+### 4. Start the Server
+
+```bash
+npm run dev
+
+```
+
+###API Endpoints (Simplified)
+
+##🧑 Users
+#POST /api/users – Register new user
+
+#POST /api/users/login – Authenticate user (returns JWT)
+
+#GET /api/users – Get all users (auth required)
+
+#GET /api/users/:id – Get user by ID
+
+#PUT /api/users/:id – Update user
+
+D#ELETE /api/users/:id – Delete user
+
+##📝 Posts
+#POST /api/posts – Create post (auth required)
+
+#GET /api/posts – Get all posts
+
+#GET /api/posts/:id – Get post by ID
+
+#PUT /api/posts/:id – Update post
+
+#DELETE /api/posts/:id – Delete post
+
+#POST /api/posts/:id/categories – Add categories
+
+#GET /api/posts/:id/comments – Get comments
+
+##💬 Comments
+#POST /api/posts/:id/comments – Add comment (auth required)
