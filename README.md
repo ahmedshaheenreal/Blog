@@ -73,35 +73,35 @@ npm run dev
 
 ```
 
-###API Endpoints (Simplified)
+### API Endpoints (Simplified)
 
-##🧑 Users
-#POST /api/users – Register new user
+## 🧑 Users
+# POST /api/users – Register new user
 
-#POST /api/users/login – Authenticate user (returns JWT)
+# POST /api/users/login – Authenticate user (returns JWT)
 
-#GET /api/users – Get all users (auth required)
+# GET /api/users – Get all users (auth required)
 
-#GET /api/users/:id – Get user by ID
+# GET /api/users/:id – Get user by ID
 
-#PUT /api/users/:id – Update user
+# PUT /api/users/:id – Update user
 
-D#ELETE /api/users/:id – Delete user
+# DELETE /api/users/:id – Delete user
 
-##📝 Posts
-#POST /api/posts – Create post (auth required)
+## 📝 Posts
+# POST /api/posts – Create post (auth required)
 
-#GET /api/posts – Get all posts
+# GET /api/posts – Get all posts
 
-#GET /api/posts/:id – Get post by ID
+# GET /api/posts/:id – Get post by ID
 
-#PUT /api/posts/:id – Update post
+# PUT /api/posts/:id – Update post
 
-#DELETE /api/posts/:id – Delete post
+# DELETE /api/posts/:id – Delete post
 
-#POST /api/posts/:id/categories – Add categories
+# POST /api/posts/:id/categories – Add categories
 
-#GET /api/posts/:id/comments – Get comments
+# GET /api/posts/:id/comments – Get comments
 
-##💬 Comments
-#POST /api/posts/:id/comments – Add comment (auth required)
+## 💬 Comments
+# POST /api/posts/:id/comments – Add comment (auth required)
