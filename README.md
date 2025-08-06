@@ -14,8 +14,7 @@ assign categories, and manage comments. Built using Node.js, Express, Sequelize 
 - Modular codebase with clean architecture (MVC)
 - Error handling and input validation
 - Unit testing with high coverage
-- Docker support (optional)
-- GitHub workflows for CI/CD
+- GitHub workflows for CI
 
 ---
 
