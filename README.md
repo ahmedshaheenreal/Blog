@@ -31,7 +31,7 @@ assign categories, and manage comments. Built using Node.js, Express, Sequelize 
 ---
 
 ## 🗂️ Project Structure
-
+<br/>
 src/
 ├── models/  Sequelize models (User, Post, Category, Comment)
 ├── controllers/  Business logic
