@@ -105,3 +105,14 @@ npm run dev
   </li>
 </ul>
 
+
+
+## 🔄 Relationships
+<li>User ↔ Posts: One-to-Many</li>
+
+<li>Post ↔ Categories: Many-to-Many</li>
+
+<li>Post ↔ Comments: One-to-Many</li>
+
+<li>User ↔ Comments: One-to-Many</li>
+
