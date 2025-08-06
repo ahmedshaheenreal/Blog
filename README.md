@@ -116,3 +116,8 @@ npm run dev
 
 <li>User ↔ Comments: One-to-Many</li>
 
+## 🧪 Sample Test Cases
+```json
+POST /api/users
+{ "username": "testuser", "email": "test@example.com", "password": "pass" }
+```
