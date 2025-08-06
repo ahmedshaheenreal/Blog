@@ -117,7 +117,73 @@ npm run dev
 <li>User ↔ Comments: One-to-Many</li>
 
 ## 🧪 Sample Test Cases
+#### 1. Create User
 ```json
 POST /api/users
 { "username": "testuser", "email": "test@example.com", "password": "pass" }
 ```
+
+
+#### 2. Login
+```json
+POST /api/users/login
+{ "email": "test@example.com", "password": "pass" }
+
+```
+
+#### 3.Create Post
+
+```json
+POST /api/posts
+Header: Authorization: Bearer <token>
+Body: { "userId": 1, "title": "My First Post", "content": "..." }
+```
+
+
+
+ #### 3.Create Post
+
+```json
+POST /api/posts
+Header: Authorization: Bearer <token>
+Body: { "userId": 1, "title": "My First Post", "content": "..." }
+
+```
+
+
+ #### 3.Invalid User Post
+
+```json
+POST /api/posts
+{ "userId": 99, "title": "Invalid", "content": "..." }
+→ 400 Bad Request
+
+
+```
+
+
+##🧪 Testing
+```bash
+npm test
+```
+####Covered: 
+<li>Auth & registration</li>
+
+<li>Post CRUD</li>
+
+<li>Category & Comment logic</li>
+
+<li>Error handling</li>
+
+
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+
+
+###👨‍💻 Author
+####Ahmed Shaheen
+
+
