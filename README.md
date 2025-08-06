@@ -73,35 +73,35 @@ npm run dev
 
 ```
 
-### API Endpoints (Simplified)
+## API Endpoints (Simplified)
+<ul>
+  <li><strong>Users</strong>
+    <ul>
+      <li>POST /api/users – Register new user</li>
+      <li>POST /api/users/login – Authenticate user (returns JWT)</li>
+      <li>GET /api/users – Get all users (auth required)</li>
+      <li>GET /api/users/:id – Get user by ID</li>
+      <li>PUT /api/users/:id – Update user</li>
+      <li>DELETE /api/users/:id – Delete user</li>
+    </ul>
+  </li>
 
-## 🧑 Users
-# POST /api/users – Register new user
+  <li><strong>Posts</strong>
+    <ul>
+      <li>POST /api/posts – Create post (auth required)</li>
+      <li>GET /api/posts – Get all posts</li>
+      <li>GET /api/posts/:id – Get post by ID</li>
+      <li>PUT /api/posts/:id – Update post</li>
+      <li>DELETE /api/posts/:id – Delete post</li>
+      <li>POST /api/posts/:id/categories – Add categories</li>
+      <li>GET /api/posts/:id/comments – Get comments</li>
+    </ul>
+  </li>
 
-# POST /api/users/login – Authenticate user (returns JWT)
+  <li><strong>Comments</strong>
+    <ul>
+      <li>POST /api/posts/:id/comments – Add comment (auth required)</li>
+    </ul>
+  </li>
+</ul>
 
-# GET /api/users – Get all users (auth required)
-
-# GET /api/users/:id – Get user by ID
-
-# PUT /api/users/:id – Update user
-
-# DELETE /api/users/:id – Delete user
-
-## 📝 Posts
-# POST /api/posts – Create post (auth required)
-
-# GET /api/posts – Get all posts
-
-# GET /api/posts/:id – Get post by ID
-
-# PUT /api/posts/:id – Update post
-
-# DELETE /api/posts/:id – Delete post
-
-# POST /api/posts/:id/categories – Add categories
-
-# GET /api/posts/:id/comments – Get comments
-
-## 💬 Comments
-# POST /api/posts/:id/comments – Add comment (auth required)
